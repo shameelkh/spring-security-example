@@ -16,15 +16,14 @@ public class UserController {
     @Autowired
     MyUserDetailsService userDetailsService;
 
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public ResponseEntity login(@RequestBody LoginCredentials loginCredentials) {
-//
-//        return new ResponseEntity("Success", HttpStatus.ACCEPTED);
-//    }
+    @RequestMapping(value = "/secure-message", method = RequestMethod.GET)
+    public ResponseEntity secureMessage() {
+        return new ResponseEntity("{\"message\": \"The Secret is Within\"}", HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
     public ResponseEntity signUp(@RequestBody User user) {
         userDetailsService.signUpUser(user);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
