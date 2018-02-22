@@ -2,6 +2,7 @@ package playground.ws;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,6 +28,7 @@ import playground.ws.security.JWTAuthorizationFilter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import java.io.IOException;
 
@@ -40,6 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public MyUserDetailsService userDetailsService;
 
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Bean
+    public DataSource dataSource() {
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("com.mysql.jdbc.GoogleDriver");
+        dataSourceBuilder.url("jdbc:google:mysql://lexical-micron-195300:us-central1:playground/temp?user=root");
+        dataSourceBuilder.username("root");
+        dataSourceBuilder.password("Playground123");
+        return dataSourceBuilder.build();
+    }
 
     @Bean
     public BCryptPasswordEncoder encoder() {
